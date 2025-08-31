@@ -8,7 +8,7 @@ on:
 
 env:
   ACR_NAME: ${{ secrets.ACR_NAME }}
-  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  IMAGE_NAME: ${{ lower(github.repository) }}:${{ github.sha }}
 
 jobs:
   build:
