@@ -14,6 +14,12 @@ provider "azurerm" {
   }
 }
 
+# Define a variable for the container image name
+variable "image_name" {
+  type        = string
+  description = "The full name and tag of the container image to deploy."
+}
+
 resource "azurerm_resource_group" "rg" {
   name = "sentiment-rg"
   location = "Central India"
