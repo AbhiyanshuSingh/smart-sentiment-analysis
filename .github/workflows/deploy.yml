@@ -8,7 +8,7 @@ on:
 
 env:
   ACR_NAME: ${{ secrets.ACR_NAME }}
-  IMAGE_NAME: ${{ lower(github.repository) }}:${{ github.sha }}
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
 
 jobs:
   build:
@@ -26,9 +26,9 @@ jobs:
       - name: Build and push Docker image
         id: build_image # Give this step an ID to reference its outputs
         run: |
-          docker build . -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}
-          docker push ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}
-          echo "image_name=${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}" >> $GITHUB_OUTPUT
+          docker build . -t ${{ env.ACR_NAME }}.azurecr.io/${{ lower(github.repository) }}:${{ github.sha }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/${{ lower(github.repository) }}:${{ github.sha }}
+          echo "image_name=${{ env.ACR_NAME }}.azurecr.io/${{ lower(github.repository) }}:${{ github.sha }}" >> $GITHUB_OUTPUT
 
   deploy:
     runs-on: ubuntu-latest
