@@ -19,7 +19,7 @@ COPY main.py .
 EXPOSE 80
 
 # Define environment variable
-ENV NAME World
+ENV NAME=World
 
 # Run main.py when the container launches
 # Use 0.0.0.0 to make it accessible from outside the container
