@@ -7,7 +7,6 @@ on:
   workflow_dispatch:
 
 env:
-  repo=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
   ACR_NAME: ${{ secrets.ACR_NAME }}
   IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
 
@@ -27,9 +26,10 @@ jobs:
       - name: Build and push Docker image
         id: build_image # Give this step an ID to reference its outputs
         run: |
-          docker build . -t ${{ env.ACR_NAME }}.azurecr.io/${{ lower(github.repository) }}:${{ github.sha }}
-          docker push ${{ env.ACR_NAME }}.azurecr.io/${{ lower(github.repository) }}:${{ github.sha }}
-          echo "image_name=${{ env.ACR_NAME }}.azurecr.io/${{ lower(github.repository) }}:${{ github.sha }}" >> $GITHUB_OUTPUT
+          repo=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          docker build . -t ${{ env.ACR_NAME }}.azurecr.io/${repo}:${{ github.sha }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/${repo}:${{ github.sha }}
+          echo "image_name=${{ env.ACR_NAME }}.azurecr.io/${repo}:${{ github.sha }}" >> $GITHUB_OUTPUT
 
   deploy:
     runs-on: ubuntu-latest
