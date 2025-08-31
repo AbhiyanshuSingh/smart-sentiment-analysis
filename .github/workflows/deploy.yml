@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 
 env:
+  repo=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
   ACR_NAME: ${{ secrets.ACR_NAME }}
   IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
 
