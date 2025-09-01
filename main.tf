@@ -72,3 +72,8 @@ resource "azurerm_container_group" "acg" {
 output "app_url" {
   value = "http://${azurerm_container_group.acg.fqdn}"
 }
+
+output "acr_name" {
+  value = azurerm_container_registry.acr.name
+  description = "The globally unique name of the Azure Container Registry."
+}
